@@ -11,6 +11,13 @@ import com.univocity.license.client.details.*;
 
 import java.io.*;
 
+/**
+ * A validator for licenses of any given product whose information is provided by {@link ProductDetails}.
+ *
+ * Licenses can be individual to a computer and therefore stored locally in a operating-system dependent fashion
+ * (for individual users), or grouped together in a single license file containing multiple license entries
+ * (for multiple servers where individual license management would be painful).
+ */
 public interface LicenseValidator {
 
 	/**
@@ -46,48 +53,59 @@ public interface LicenseValidator {
 	 */
 	boolean setLicenseFilePath(String licenseFilePath);
 
-	void setLicense();
-
 	/**
-	 * Validates the license currently associated with the product <strong>asynchronously</strong>. The license is expected
+	 * Validates the local license currently associated with the product. The license is expected
 	 * to be stored locally in an operating-system dependent store. A file-based copy of the license will be used if the
 	 * operating system store is not available. The path to this file is determined by the result of method
 	 * {@link #getLicenseFilePath()} - it will only be used if a license can't be found on the operating-system store.
 	 *
-	 * This is the preferred way to validate the license as the remote validation (using the servers provided by
-	 * {@link StoreDetails#licenseServerDomains()}) is potentially slow.
+	 * <strong>NOTE:</strong> this will return immediately for a quick initial validation based on the license stored
+	 * locally, but it will also synchronize the local license with the license server in a separate process.
+	 * The remote validation result is cached locally and in the server for a few hours. Subsequent calls to this method
+	 * will produce the previous validation result immediately.
 	 *
-	 * <strong>NOTE</strong> the remote validation result is cached locally and in the server for a few hours. Subsequent
-	 * calls will return return the previous validation result immediately.
+	 * The remote synchronization and validation uses the servers provided by {@link StoreDetails#licenseServerDomains()})
+	 * and is potentially slow. If any changes have been applied to the license (revoke, renewal, etc) the locally stored
+	 * license will be updated accordingly, and if the online validation result is different from the initial offline
+	 * validation, the {@link RemoteValidationAction} provided as a parameter to this method will be called. If both
+	 * offline and online validation produce the same result the {@link RemoteValidationAction} won't be called.
 	 *
-	 * @param licenseValidationAction action to be performed once the license validation completed. A
+	 * @param licenseValidationAction action to be performed once the remote license validation completed. A
 	 *                                {@link LicenseValidationResult} will be sent to the caller via
-	 *                                {@link LicenseValidationAction#licenseValidated(LicenseValidationResult)}.
+	 *                                {@link RemoteValidationAction#licenseValidated(LicenseValidationResult)}.
+	 *
+	 * @return the result of the offline license validation operation, i.e. whether the current license is valid
+	 * for the current computer, where the license is not expired, the current product version was released within the
+	 * support period, and the computer using this product is the same since the license has been granted.
 	 */
-	void validateOnline(LicenseValidationAction licenseValidationAction);
+	LicenseValidationResult validate(RemoteValidationAction licenseValidationAction);
+
 
 	/**
-	 * Validates the license currently associated with the product <strong>synchronously</strong>. The license is expected
-	 * to be stored locally in an operating-system dependent store. A file-based copy of the license will be used if the
-	 * operating system store is not available. The path to this file is determined by the result of method
-	 * {@link #getLicenseFilePath()} - it will only be used if a license can't be found on the operating-system store.
+	 * Validates a given license file containing one or multiple license entries. Does not attempt to validate the
+	 * license stored in the operating-system store nor the license file given by {@link #getLicenseFilePath()}.
 	 *
-	 * <strong>NOTE</strong> that this method will block and may render your application unresponsive as the remote
-	 * validation (using the servers provided by {@link StoreDetails#licenseServerDomains()}) is potentially slow.
+	 * <strong>NOTE:</strong> this will return immediately for a quick initial validation based on the license entries
+	 * found in the given file, but it will also synchronize the given file with the license server in a separate process.
+	 * The remote validation result is cached locally and in the server for a few hours. Subsequent calls to this method
+	 * will produce the previous validation result immediately.
 	 *
-	 * @return the result of the license validation operation.
+	 * The remote synchronization and validation uses the servers provided by {@link StoreDetails#licenseServerDomains()})
+	 * and is potentially slow. If any changes have been applied to the relevant license entry (revoke, renewal, etc)
+	 * the given file will be updated accordingly, and if the online validation result is different from the initial offline
+	 * validation, the {@link RemoteValidationAction} provided as a parameter to this method will be called. If both
+	 * offline and online validation produce the same result the {@link RemoteValidationAction} won't be called.
+	 *
+	 * @param licenseFile             a license file containing one or more license entries. It <strong>MUST</strong>
+	 *                                have read and write permissions.
+	 * @param licenseValidationAction action to be performed once the remote license validation completed. A
+	 *                                {@link LicenseValidationResult} will be sent to the caller via
+	 *                                {@link RemoteValidationAction#licenseValidated(LicenseValidationResult)}.
+	 *
+	 * @return the result of the offline license validation operation, i.e. whether the given file has an entry with
+	 * a license that valid for the current computer, where the license entry is not expired, the current product
+	 * version was released within the support period, and the computer using this product is the same since the
+	 * license has been granted.
 	 */
-	LicenseValidationResult validateOnline();
-
-	/**
-	 * Validates a given license file. Does not attempt to validate the license stored in the operating-system store.
-	 *
-	 * @param licenseFile the file containing one or more licenses for the current product
-	 *
-	 * @return whether the given license file has a valid license entry, i.e. the license is not expired, the
-	 * current product version was released within the support period, and the computer using this product is the same
-	 * since the license has been granted.
-	 */
-	LicenseValidationResult validate(final File licenseFile);
+	LicenseValidationResult validate(final File licenseFile, RemoteValidationAction licenseValidationAction);
 }
-

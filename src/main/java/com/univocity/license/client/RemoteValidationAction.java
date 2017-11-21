@@ -7,7 +7,7 @@
 
 package com.univocity.license.client;
 
-public interface LicenseValidationAction {
+public interface RemoteValidationAction {
 
 	void licenseValidated(LicenseValidationResult result);
 }

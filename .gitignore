@@ -1,0 +1,7 @@
+/target
+/test-output/*
+*.iml
+*.ipr
+*.iws
+.DS_Store
+**/.DS_Store

@@ -5,9 +5,9 @@
  *
  */
 
-package com.univocity.license.client;
+package com.univocity.api.license;
 
-public interface RemoteValidationAction {
+public interface LicenseValidationAction {
 
 	void licenseValidated(LicenseValidationResult result);
 }

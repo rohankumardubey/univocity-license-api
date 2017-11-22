@@ -5,7 +5,7 @@
  *
  */
 
-package com.univocity.license.client;
+package com.univocity.api.license;
 
 public enum LicenseValidationResult {
 	INCOMPLETE,
@@ -18,4 +18,5 @@ public enum LicenseValidationResult {
 	INVALID,
 	DISABLED, //remote only
 	VALID,
+	ERROR
 }

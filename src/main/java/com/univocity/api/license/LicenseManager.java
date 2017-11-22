@@ -5,9 +5,12 @@
  *
  */
 
-package com.univocity.license.client;
+package com.univocity.api.license;
 
+import com.univocity.api.license.client.details.*;
+import com.univocity.api.license.details.*;
 import com.univocity.license.client.details.*;
+import com.univocity.license.client1.details.*;
 
 import java.io.*;
 
@@ -143,20 +146,20 @@ public interface LicenseManager {
 	 * The remote synchronization and validation uses the servers provided by {@link Store#licenseServerDomains()})
 	 * and is potentially slow. If any changes have been applied to the license (revoke, renewal, etc) the locally stored
 	 * license will be updated accordingly, and if the online validation result is different from the initial offline
-	 * validation, the {@link RemoteValidationAction} provided as a parameter to this method will be called. If both
-	 * offline and online validation produce the same result the {@link RemoteValidationAction} won't be called.
+	 * validation, the {@link LicenseValidationAction} provided as a parameter to this method will be called. If both
+	 * offline and online validation produce the same result the {@link LicenseValidationAction} won't be called.
 	 *
-	 * If the license server can't be reached, the license information can be updated offline using the method
-	 * {@link #assignLicense(File)}.
+	 * If the license server can't be reached, the license information can be updated manually by obtaining a license
+	 * file and passing it to the method {@link #assignLicense(File)}.
 	 *
 	 * @param licenseValidationAction action to be performed once the remote license validation completed. A
 	 *                                {@link LicenseValidationResult} will be sent to the caller via
-	 *                                {@link RemoteValidationAction#licenseValidated(LicenseValidationResult)}.
+	 *                                {@link LicenseValidationAction#licenseValidated(LicenseValidationResult)}.
 	 *
 	 * @return the result of the offline license validation operation, i.e. whether the current license is valid
 	 * for the current computer, where the license is not expired, the current product version was released within the
 	 * support period, and the computer using this product is the same since the license has been granted.
 	 */
-	LicenseValidationResult validate(RemoteValidationAction licenseValidationAction);
+	LicenseValidationResult validate(LicenseValidationAction licenseValidationAction);
 
 }

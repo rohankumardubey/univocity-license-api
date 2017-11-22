@@ -5,11 +5,9 @@
  *
  */
 
-package com.univocity.license.client.details;
+package com.univocity.api.license.details;
 
 import com.univocity.api.common.*;
-import com.univocity.commons.lang.*;
-import com.univocity.commons.lang.time.*;
 
 import java.util.*;
 

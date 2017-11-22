@@ -5,11 +5,14 @@
  *
  */
 
-package com.univocity.license.client.details;
+package com.univocity.api.license.details;
 
 import com.univocity.api.*;
 import com.univocity.api.common.*;
+import com.univocity.api.license.*;
+import com.univocity.api.license.client.*;
 import com.univocity.license.client.*;
+import com.univocity.license.client1.*;
 
 /**
  * Information required from a product to enable license validation - both online and offline.

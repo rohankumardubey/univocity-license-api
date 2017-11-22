@@ -5,7 +5,7 @@
  *
  */
 
-package com.univocity.license.client;
+package com.univocity.api.license;
 
 import java.util.*;
 

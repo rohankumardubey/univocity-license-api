@@ -12,13 +12,13 @@ import com.univocity.license.client.details.*;
 import java.io.*;
 
 /**
- * A validator for licenses of any given product whose information is provided by {@link ProductDetails}.
+ * A validator for licenses of any given product whose information is provided by {@link Product}.
  *
  * Licenses can be individual to a computer and therefore stored locally in a operating-system dependent fashion
  * (for individual users), or grouped together in a single license file containing multiple license entries
  * (for multiple servers where individual license management would be painful).
  */
-public interface LicenseValidator {
+public interface LicenseManager {
 
 	/**
 	 * Returns the path where the license for this particular product version is expected to be located.
@@ -64,7 +64,7 @@ public interface LicenseValidator {
 	 * The remote validation result is cached locally and in the server for a few hours. Subsequent calls to this method
 	 * will produce the previous validation result immediately.
 	 *
-	 * The remote synchronization and validation uses the servers provided by {@link StoreDetails#licenseServerDomains()})
+	 * The remote synchronization and validation uses the servers provided by {@link Store#licenseServerDomains()})
 	 * and is potentially slow. If any changes have been applied to the license (revoke, renewal, etc) the locally stored
 	 * license will be updated accordingly, and if the online validation result is different from the initial offline
 	 * validation, the {@link RemoteValidationAction} provided as a parameter to this method will be called. If both
@@ -82,17 +82,17 @@ public interface LicenseValidator {
 
 
 	/**
-	 * Validates a given license file containing one or multiple license entries. Does not attempt to validate the
-	 * license stored in the operating-system store nor the license file given by {@link #getLicenseFilePath()}.
+	 * Validates a given license file containing one or multiple license entries. If a valid entry is found, that entry
+	 * will be stored in the operating-system store and the license file given by {@link #getLicenseFilePath()}.
 	 *
 	 * <strong>NOTE:</strong> this will return immediately for a quick initial validation based on the license entries
 	 * found in the given file, but it will also synchronize the given file with the license server in a separate process.
 	 * The remote validation result is cached locally and in the server for a few hours. Subsequent calls to this method
 	 * will produce the previous validation result immediately.
 	 *
-	 * The remote synchronization and validation uses the servers provided by {@link StoreDetails#licenseServerDomains()})
+	 * The remote synchronization and validation uses the servers provided by {@link Store#licenseServerDomains()})
 	 * and is potentially slow. If any changes have been applied to the relevant license entry (revoke, renewal, etc)
-	 * the given file will be updated accordingly, and if the online validation result is different from the initial offline
+	 * the given license will be updated accordingly, and if the online validation result is different from the initial offline
 	 * validation, the {@link RemoteValidationAction} provided as a parameter to this method will be called. If both
 	 * offline and online validation produce the same result the {@link RemoteValidationAction} won't be called.
 	 *
@@ -108,4 +108,54 @@ public interface LicenseValidator {
 	 * license has been granted.
 	 */
 	LicenseValidationResult validate(final File licenseFile, RemoteValidationAction licenseValidationAction);
+
+	/**
+	 * Assigns a license for this product to a user. The information provided in the parameters and the hardware
+	 * identity will be sent to the license server to generate a {@link License} object. If the information provided
+	 * matches with a license purchase order and its user assignment details, the server will return the signed license
+	 * details and this information will be stored locally.
+	 *
+	 * <strong>NOTE:</strong> this method call may take some time to complete. Running it in a separate thread is
+	 * recommended to prevent locking up your user interface (if applicable).
+	 *
+	 * @param email     e-mail address of the user to whom a license was assigned.
+	 * @param firstName first name the user to whom a license was  assigned.
+	 * @param lastName  last name of the user to whom a license was assigned.
+	 * @param serialKey the license key associated with the given user. The serial should have been e-mailed to the
+	 *                  {@code email} address provided beforehand.
+	 *
+	 * @return a license for this product, assigned to the given user and current hardware.
+	 *
+	 * @throws LicenseAssignmentException if any error occurs assigning the license
+	 */
+	License assignLicense(String email, String firstName, String lastName, String serialKey) throws LicenseAssignmentException;
+
+	/**
+	 * Assigns a trial license for this product to a user. The information provided in the parameters and the hardware
+	 * identity will be sent to the license server to generate a {@link License} object. If the information provided
+	 * is accepted, the server will return the signed license details and this information will be stored locally.
+	 *
+	 * <strong>NOTE:</strong> this method call may take some time to complete. Running it in a separate thread is
+	 * recommended to prevent locking up your user interface (if applicable).
+	 *
+	 * @param email     e-mail address of the user to whom a license will be assigned.
+	 * @param firstName first name the user to whom a license will be assigned.
+	 * @param lastName  last name of the user to whom a license will be assigned.
+	 *
+	 * @return a trial license for this product, assigned to the given user and current hardware.
+	 *
+	 * @throws LicenseAssignmentException if any error occurs assigning the trial license
+	 */
+	License assignTrial(String email, String firstName, String lastName) throws LicenseAssignmentException;
+
+	/**
+	 * Returns the license associated with the current product, user and hardware, if available.
+	 *
+	 * The {@code License} returned will contain the information stored in the operating-system dependent store. If
+	 * that store is not available, the information will come from the file specified in {@link #getLicenseFilePath()}.
+	 *
+	 * @return the current license details, or {@code null} if no license could be found.
+	 */
+	License getLicense();
+
 }

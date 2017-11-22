@@ -7,23 +7,25 @@
 
 package com.univocity.license.client.details;
 
+import com.univocity.api.*;
 import com.univocity.api.common.*;
 import com.univocity.license.client.*;
 
 /**
  * Information required from a product to enable license validation - both online and offline.
  *
- * Use methods {@link #assignLicense(String, String, String, String)} and {@link #assignTrial(String, String, String)}
- * to assign a license to a user.
+ * Use method {@link #licenseManager()} to assign and validate licenses for this product..
  */
-public final class ProductDetails {
+public final class Product {
 
 	private final Long id;
 	private final String name;
 	private final String publicKey;
 	private final ProductVariant variant;
 	private final ProductVersion version;
-	private final StoreDetails store;
+	private final Store store;
+
+	private LicenseManager licenseManager;
 
 	/**
 	 * Builds a product information object with current product version and a public key for license validation
@@ -33,9 +35,9 @@ public final class ProductDetails {
 	 * @param publicKey the public key used for validating the product license.
 	 * @param variant   the {@link ProductVariant} associated with the given version.
 	 * @param version   the {@link ProductVersion} of the licensed product
-	 * @param store     the {@link StoreDetails} of the licensed product
+	 * @param store     the {@link Store} of the licensed product
 	 */
-	public ProductDetails(Long id, String name, String publicKey, ProductVariant variant, ProductVersion version, StoreDetails store) {
+	public Product(Long id, String name, String publicKey, ProductVariant variant, ProductVersion version, Store store) {
 		Args.positiveOrZero(id, "Product ID");
 		Args.notBlank(name, "Product name");
 		Args.notNull(publicKey, "Public key");
@@ -96,43 +98,25 @@ public final class ProductDetails {
 	}
 
 	/**
-	 * Returns the {@link StoreDetails} of the store that sells licenses for this product.
+	 * Returns the {@link Store} of the store that sells licenses for this product.
 	 *
 	 * @return the current product store details.
 	 */
-	public final StoreDetails store() {
+	public final Store store() {
 		return store;
 	}
 
 	/**
-	 * Obtains a license registration for this product.
+	 * Returns the {@link LicenseManager} used to manage and validate licenses associated with this product.
 	 *
-	 * @param email     e-mail address of the user to whom a license was assigned.
-	 * @param firstName first name the user to whom a license was  assigned.
-	 * @param lastName  last name of the user to whom a license was assigned.
-	 * @param serialKey the license key associated with the given user. The serial should have been e-mailed to the
-	 *                  {@code email} address provided beforehand.
-	 *
-	 * @return a license for this product, assigned to the given user.
+	 * @return the license manager of this product.
 	 */
-	public final LicenseRegistration assignLicense(String email, String firstName, String lastName, String serialKey) {
-		return LicenseRegistration.assign(email, firstName, lastName, serialKey, this);
+	public synchronized final LicenseManager licenseManager() {
+		if (licenseManager == null) {
+			licenseManager = Builder.build(LicenseManager.class, this);
+		}
+		return licenseManager;
 	}
-
-	/**
-	 * Creates a new trial license registration for this product.
-	 *
-	 * @param email     e-mail address of the user to whom a license will be assigned.
-	 * @param firstName first name the user to whom a license will be assigned.
-	 * @param lastName  last name of the user to whom a license will be assigned.
-	 *
-	 * @return a trial license for this product, assigned to the given user.
-	 */
-	public final LicenseRegistration assignTrial(String email, String firstName, String lastName) {
-		return LicenseRegistration.trial(email, firstName, lastName, this);
-	}
-
-
 
 	@Override
 	public final String toString() {
@@ -148,7 +132,7 @@ public final class ProductDetails {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 
-		ProductDetails that = (ProductDetails) o;
+		Product that = (Product) o;
 
 		if (!id.equals(that.id)) return false;
 		if (!name.equals(that.name)) return false;

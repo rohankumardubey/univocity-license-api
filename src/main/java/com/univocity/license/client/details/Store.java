@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * Information required from a product store to enable license validation - both online and offline.
  */
-public final class StoreDetails {
+public final class Store {
 
 	private final String name;
 	private final Long id;
@@ -29,7 +29,7 @@ public final class StoreDetails {
 	 * @param licenseServerDomain       the domain name used by the license server.
 	 * @param otherLicenseServerDomains additional domain names of license servers to be used for remote license validation.
 	 */
-	public StoreDetails(Long id, String name, String licenseServerDomain, String... otherLicenseServerDomains) {
+	public Store(Long id, String name, String licenseServerDomain, String... otherLicenseServerDomains) {
 		Args.positiveOrZero(id, "Store ID");
 		Args.notBlank(name, "Store name");
 		Args.notBlank(licenseServerDomain, "License server domain");
@@ -97,7 +97,7 @@ public final class StoreDetails {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 
-		StoreDetails that = (StoreDetails) o;
+		Store that = (Store) o;
 
 		if (!name.equals(that.name)) return false;
 		return id.equals(that.id);

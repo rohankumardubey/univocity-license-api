@@ -54,60 +54,26 @@ public interface LicenseManager {
 	boolean setLicenseFilePath(String licenseFilePath);
 
 	/**
-	 * Validates the local license currently associated with the product. The license is expected
-	 * to be stored locally in an operating-system dependent store. A file-based copy of the license will be used if the
-	 * operating system store is not available. The path to this file is determined by the result of method
-	 * {@link #getLicenseFilePath()} - it will only be used if a license can't be found on the operating-system store.
+	 * Assigns a license from a file containing one or multiple license entries. If a valid entry is found,
+	 * that entry will be stored in the operating-system store and the file given by {@link #getLicenseFilePath()}.
 	 *
-	 * <strong>NOTE:</strong> this will return immediately for a quick initial validation based on the license stored
-	 * locally, but it will also synchronize the local license with the license server in a separate process.
-	 * The remote validation result is cached locally and in the server for a few hours. Subsequent calls to this method
-	 * will produce the previous validation result immediately.
+	 * If the information provided in the chosen entry matches with a license purchase order and its hardware assignment
+	 * details, the server will return the updated signed license details and this information will be stored locally.
 	 *
-	 * The remote synchronization and validation uses the servers provided by {@link Store#licenseServerDomains()})
-	 * and is potentially slow. If any changes have been applied to the license (revoke, renewal, etc) the locally stored
-	 * license will be updated accordingly, and if the online validation result is different from the initial offline
-	 * validation, the {@link RemoteValidationAction} provided as a parameter to this method will be called. If both
-	 * offline and online validation produce the same result the {@link RemoteValidationAction} won't be called.
+	 * If the license server can't be reached, the license information can be updated offline by calling this method again
+	 * with an updated license file.
 	 *
-	 * @param licenseValidationAction action to be performed once the remote license validation completed. A
-	 *                                {@link LicenseValidationResult} will be sent to the caller via
-	 *                                {@link RemoteValidationAction#licenseValidated(LicenseValidationResult)}.
+	 * <strong>NOTE:</strong> this method call may take some time to complete. Running it in a separate thread is
+	 * recommended to prevent locking up your user interface (if applicable).
 	 *
-	 * @return the result of the offline license validation operation, i.e. whether the current license is valid
-	 * for the current computer, where the license is not expired, the current product version was released within the
-	 * support period, and the computer using this product is the same since the license has been granted.
+	 * @param licenseFile a license file containing one or more license entries. It <strong>MUST</strong>
+	 *                    have read permissions.
+	 *
+	 * @return a license for this product, assigned to the current hardware.
+	 *
+	 * @throws LicenseAssignmentException if any error occurs assigning the license
 	 */
-	LicenseValidationResult validate(RemoteValidationAction licenseValidationAction);
-
-
-	/**
-	 * Validates a given license file containing one or multiple license entries. If a valid entry is found, that entry
-	 * will be stored in the operating-system store and the license file given by {@link #getLicenseFilePath()}.
-	 *
-	 * <strong>NOTE:</strong> this will return immediately for a quick initial validation based on the license entries
-	 * found in the given file, but it will also synchronize the given file with the license server in a separate process.
-	 * The remote validation result is cached locally and in the server for a few hours. Subsequent calls to this method
-	 * will produce the previous validation result immediately.
-	 *
-	 * The remote synchronization and validation uses the servers provided by {@link Store#licenseServerDomains()})
-	 * and is potentially slow. If any changes have been applied to the relevant license entry (revoke, renewal, etc)
-	 * the given license will be updated accordingly, and if the online validation result is different from the initial offline
-	 * validation, the {@link RemoteValidationAction} provided as a parameter to this method will be called. If both
-	 * offline and online validation produce the same result the {@link RemoteValidationAction} won't be called.
-	 *
-	 * @param licenseFile             a license file containing one or more license entries. It <strong>MUST</strong>
-	 *                                have read and write permissions.
-	 * @param licenseValidationAction action to be performed once the remote license validation completed. A
-	 *                                {@link LicenseValidationResult} will be sent to the caller via
-	 *                                {@link RemoteValidationAction#licenseValidated(LicenseValidationResult)}.
-	 *
-	 * @return the result of the offline license validation operation, i.e. whether the given file has an entry with
-	 * a license that valid for the current computer, where the license entry is not expired, the current product
-	 * version was released within the support period, and the computer using this product is the same since the
-	 * license has been granted.
-	 */
-	LicenseValidationResult validate(final File licenseFile, RemoteValidationAction licenseValidationAction);
+	License assignLicense(final File licenseFile) throws LicenseAssignmentException;
 
 	/**
 	 * Assigns a license for this product to a user. The information provided in the parameters and the hardware
@@ -151,11 +117,46 @@ public interface LicenseManager {
 	/**
 	 * Returns the license associated with the current product, user and hardware, if available.
 	 *
+	 * If no license information is found, the license can be obtained from the license server using
+	 * {@link #assignLicense(String, String, String, String)} or {@link #assignTrial(String, String, String)}.
+	 * Alternatively, a license can be assigned offline using a
+	 * license file and calling the {@link #assignLicense(File)} method to activate it.
+	 *
 	 * The {@code License} returned will contain the information stored in the operating-system dependent store. If
 	 * that store is not available, the information will come from the file specified in {@link #getLicenseFilePath()}.
 	 *
 	 * @return the current license details, or {@code null} if no license could be found.
 	 */
 	License getLicense();
+
+	/**
+	 * Validates the local license currently associated with the product. The license is expected
+	 * to be stored locally in an operating-system dependent store. A file-based copy of the license will be used if the
+	 * operating system store is not available. The path to this file is determined by the result of method
+	 * {@link #getLicenseFilePath()} - it will only be used if a license can't be found on the operating-system store.
+	 *
+	 * <strong>NOTE:</strong> this will return immediately for a quick initial validation based on the license stored
+	 * locally, but it will also synchronize the local license with the license server in a separate process.
+	 * The remote validation result is cached locally and in the server for a few hours. Subsequent calls to this method
+	 * will produce the previous validation result immediately.
+	 *
+	 * The remote synchronization and validation uses the servers provided by {@link Store#licenseServerDomains()})
+	 * and is potentially slow. If any changes have been applied to the license (revoke, renewal, etc) the locally stored
+	 * license will be updated accordingly, and if the online validation result is different from the initial offline
+	 * validation, the {@link RemoteValidationAction} provided as a parameter to this method will be called. If both
+	 * offline and online validation produce the same result the {@link RemoteValidationAction} won't be called.
+	 *
+	 * If the license server can't be reached, the license information can be updated offline using the method
+	 * {@link #assignLicense(File)}.
+	 *
+	 * @param licenseValidationAction action to be performed once the remote license validation completed. A
+	 *                                {@link LicenseValidationResult} will be sent to the caller via
+	 *                                {@link RemoteValidationAction#licenseValidated(LicenseValidationResult)}.
+	 *
+	 * @return the result of the offline license validation operation, i.e. whether the current license is valid
+	 * for the current computer, where the license is not expired, the current product version was released within the
+	 * support period, and the computer using this product is the same since the license has been granted.
+	 */
+	LicenseValidationResult validate(RemoteValidationAction licenseValidationAction);
 
 }

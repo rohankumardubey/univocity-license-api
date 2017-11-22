@@ -18,5 +18,4 @@ public enum LicenseValidationResult {
 	INVALID,
 	DISABLED, //remote only
 	VALID,
-
 }

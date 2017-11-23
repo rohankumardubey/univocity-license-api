@@ -133,9 +133,9 @@ public interface LicenseManager {
 	License getLicense();
 
 	/**
-	 * Validates the local license currently associated with the product. The license is expected
-	 * to be stored locally in an operating-system dependent store. A file-based copy of the license will be used if the
-	 * operating system store is not available. The path to this file is determined by the result of method
+	 * Validates the local license currently associated with the product (via {@link #getLicense()}). The license
+	 * is expected to be stored locally in an operating-system dependent store. A file-based copy of the license will
+	 * be used if the operating system store is not available. The path to this file is determined by the result of method
 	 * {@link #getLicenseFilePath()} - it will only be used if a license can't be found on the operating-system store.
 	 *
 	 * <strong>NOTE:</strong> this will return immediately for a quick initial validation based on the license stored

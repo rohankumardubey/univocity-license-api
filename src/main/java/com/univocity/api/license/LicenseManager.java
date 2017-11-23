@@ -7,10 +7,7 @@
 
 package com.univocity.api.license;
 
-import com.univocity.api.license.client.details.*;
 import com.univocity.api.license.details.*;
-import com.univocity.license.client.details.*;
-import com.univocity.license.client1.details.*;
 
 import java.io.*;
 

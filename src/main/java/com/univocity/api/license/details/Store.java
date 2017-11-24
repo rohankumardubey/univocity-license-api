@@ -68,7 +68,7 @@ public final class Store {
 
 		for (int i = 0; i < value.length(); i++) {
 			char ch = value.charAt(i);
-			if (!(Character.isLetterOrDigit(ch) || ch == '.' || ch == '_' || ch == '-')) {
+			if (!(Character.isLetterOrDigit(ch) || ch == '.' || ch == '_' || ch == '-' || ch == ':')) {
 				throw new IllegalArgumentException("'" + value + "' is not a valid domain name");
 			}
 		}

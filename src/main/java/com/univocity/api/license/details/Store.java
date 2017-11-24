@@ -37,14 +37,15 @@ public final class Store {
 		this.id = id;
 		this.name = name;
 
-		licenseServerDomain = licenseServerDomain.trim().toLowerCase();
+		licenseServerDomain = clearDomainName(licenseServerDomain);
 		for (int i = 0; i < otherLicenseServerDomains.length; i++) {
-			otherLicenseServerDomains[i] = otherLicenseServerDomains[i].trim().toLowerCase();
+			otherLicenseServerDomains[i] = clearDomainName(otherLicenseServerDomains[i]);
 		}
 
 		LinkedHashSet<String> set = new LinkedHashSet<String>();
 		set.add(licenseServerDomain);
 		Collections.addAll(set, otherLicenseServerDomains);
+		set.remove("");
 
 		for (String domain : set) {
 			if (domain.contains("univocity.")) {
@@ -52,7 +53,27 @@ public final class Store {
 			}
 		}
 
+		if (set.isEmpty()) {
+			throw new IllegalArgumentException("A license server domain is mandatory.");
+		}
+
 		this.licenseServerDomains = Collections.unmodifiableList(new ArrayList<String>(set));
+	}
+
+	private static String clearDomainName(String value) {
+		if (value == null) {
+			return "";
+		}
+		value = value.trim().toLowerCase();
+
+		for (int i = 0; i < value.length(); i++) {
+			char ch = value.charAt(i);
+			if (!(Character.isLetterOrDigit(ch) || ch == '.' || ch == '_' || ch == '-')) {
+				throw new IllegalArgumentException("'" + value + "' is not a valid domain name");
+			}
+		}
+
+		return value;
 	}
 
 

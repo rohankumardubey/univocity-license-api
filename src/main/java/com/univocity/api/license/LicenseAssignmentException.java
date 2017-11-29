@@ -20,4 +20,7 @@ public class LicenseAssignmentException extends Exception {
 		this.validationResult = validationResult;
 	}
 
+	public LicenseValidationResult getValidationResult() {
+		return validationResult;
+	}
 }

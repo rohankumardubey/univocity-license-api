@@ -52,6 +52,13 @@ public interface License {
 	String getSerialKey();
 
 	/**
+	 * Indicates whether this license is a trial license. Shorthand for {@code getSerialKey() == null}.
+	 *
+	 * @return {@code true} if this is a trial license, {@code false} otherwise.
+	 */
+	boolean isTrial();
+
+	/**
 	 * Name of the product associated with this license
 	 *
 	 * @return the product name

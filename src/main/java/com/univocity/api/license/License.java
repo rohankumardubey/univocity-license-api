@@ -74,7 +74,7 @@ public interface License {
 
 	/**
 	 * Variant description of the product associated with this license (e.g. "enterprise", "professional", etc).
-	 * May be blank.
+	 * Will be blank if no variants exist.
 	 *
 	 * @return the product variant.
 	 */

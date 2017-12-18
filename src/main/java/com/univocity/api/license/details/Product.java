@@ -16,7 +16,9 @@ import com.univocity.api.license.*;
  *
  * Use method {@link #licenseManager()} to assign and validate licenses for this product..
  */
-public final class Product {
+public class Product {
+
+	private static final ProductVariant LICENSE_PROVIDED = new ProductVariant(0L);
 
 	private final Long id;
 	private final String name;
@@ -33,7 +35,7 @@ public final class Product {
 	 * @param id        the ID of this product
 	 * @param name      the name of this product.
 	 * @param publicKey the public key used for validating the product license.
-	 * @param variant   the {@link ProductVariant} associated with the given version.
+	 * @param variant   the {@link ProductVariant} associated with the given version. If {@code null} the variant will be determined by the license.
 	 * @param version   the {@link ProductVersion} of the licensed product
 	 * @param store     the {@link Store} of the licensed product
 	 */
@@ -41,13 +43,12 @@ public final class Product {
 		Args.positiveOrZero(id, "Product ID");
 		Args.notBlank(name, "Product name");
 		Args.notNull(publicKey, "Public key");
-		Args.notNull(variant, "Variant of product '" + name + "'");
 		Args.notNull(version, "Store details of product '" + name + "'");
 
 		this.id = id;
 		this.name = name;
 		this.publicKey = publicKey;
-		this.variant = variant;
+		this.variant = variant == null ? LICENSE_PROVIDED : variant;
 		this.version = version;
 		this.store = store;
 	}
@@ -121,33 +122,33 @@ public final class Product {
 	@Override
 	public final String toString() {
 		if (variant.description().isEmpty()) {
-			return name + ' ' + variant.description() + ' ' + version.id();
+			return name + ' ' + variant.description() + ' ' + version.identifier();
 		} else {
-			return name + ' ' + version.id();
+			return name + ' ' + version.identifier();
 		}
 	}
 
 	@Override
-	public final boolean equals(Object o) {
+	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 
-		Product that = (Product) o;
+		Product product = (Product) o;
 
-		if (!id.equals(that.id)) return false;
-		if (!name.equals(that.name)) return false;
-		if (!publicKey.equals(that.publicKey)) return false;
-		if (!variant.equals(that.variant)) return false;
-		if (!version.equals(that.version)) return false;
-		return store.equals(that.store);
+		if (!id.equals(product.id)) return false;
+		if (!name.equals(product.name)) return false;
+		if (!publicKey.equals(product.publicKey)) return false;
+		if (variant != null ? !variant.equals(product.variant) : product.variant != null) return false;
+		if (!version.equals(product.version)) return false;
+		return store.equals(product.store);
 	}
 
 	@Override
-	public final int hashCode() {
+	public int hashCode() {
 		int result = id.hashCode();
 		result = 31 * result + name.hashCode();
 		result = 31 * result + publicKey.hashCode();
-		result = 31 * result + variant.hashCode();
+		result = 31 * result + (variant != null ? variant.hashCode() : 0);
 		result = 31 * result + version.hashCode();
 		result = 31 * result + store.hashCode();
 		return result;

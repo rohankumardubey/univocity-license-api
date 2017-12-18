@@ -17,23 +17,23 @@ import java.util.*;
 public final class ProductVersion {
 
 	private final String formattedReleaseDate;
-	private final String id;
+	private final String identifier;
 	private final Calendar releaseDate;
 
 	/**
 	 * Builds a new product version, with ID and release date, for a given product variant instance
 	 *
-	 * @param id          the version identifier, typically specified as {@code [MAJOR].[MINOR].[MAINTENANCE]}, e.g. {@code "2.4.16"}
-	 * @param releaseDate date this particular version was released. <strong>MUST</strong> be formatted as {@code "yyyy-MM-dd"}.
+	 * @param versionIdentifier the version identifier, typically specified as {@code [MAJOR].[MINOR].[MAINTENANCE]}, e.g. {@code "2.4.16"}
+	 * @param releaseDate   date this particular version was released. <strong>MUST</strong> be formatted as {@code "yyyy-MM-dd"}.
 	 */
-	public ProductVersion(String id, String releaseDate) {
-		Args.notBlank(id, "Version ID");
-		Args.notBlank(releaseDate, "Release date of version '" + id + "'");
+	public ProductVersion(String versionIdentifier, String releaseDate) {
+		Args.notBlank(versionIdentifier, "Version ID");
+		Args.notBlank(releaseDate, "Release date of version '" + versionIdentifier + "'");
 
 		releaseDate = releaseDate.trim();
 
 		this.releaseDate = Args.isoDateStringToCalendar(releaseDate);
-		this.id = id;
+		this.identifier = versionIdentifier;
 		this.formattedReleaseDate = releaseDate;
 	}
 
@@ -42,8 +42,8 @@ public final class ProductVersion {
 	 *
 	 * @return the current product version.
 	 */
-	public final String id() {
-		return id;
+	public final String identifier() {
+		return identifier;
 	}
 
 	/**
@@ -66,7 +66,7 @@ public final class ProductVersion {
 
 	@Override
 	public final String toString() {
-		return id;
+		return identifier;
 	}
 
 	@Override
@@ -76,11 +76,11 @@ public final class ProductVersion {
 
 		ProductVersion that = (ProductVersion) o;
 
-		return id.equals(that.id);
+		return identifier.equals(that.identifier);
 	}
 
 	@Override
 	public final int hashCode() {
-		return id.hashCode();
+		return identifier.hashCode();
 	}
 }

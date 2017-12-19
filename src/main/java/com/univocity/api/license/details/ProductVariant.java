@@ -14,6 +14,8 @@ import com.univocity.api.common.*;
  */
 public final class ProductVariant {
 
+	public static final ProductVariant LICENSE_PROVIDED = new ProductVariant(0L);
+
 	private final String description;
 	private final Long id;
 

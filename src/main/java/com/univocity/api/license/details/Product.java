@@ -11,14 +11,14 @@ import com.univocity.api.*;
 import com.univocity.api.common.*;
 import com.univocity.api.license.*;
 
+import static com.univocity.api.license.details.ProductVariant.*;
+
 /**
  * Information required from a product to enable license validation - both online and offline.
  *
  * Use method {@link #licenseManager()} to assign and validate licenses for this product..
  */
 public class Product {
-
-	private static final ProductVariant LICENSE_PROVIDED = new ProductVariant(0L);
 
 	private final Long id;
 	private final String name;

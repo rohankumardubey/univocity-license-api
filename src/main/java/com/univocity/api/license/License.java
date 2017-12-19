@@ -45,7 +45,7 @@ public interface License {
 	String getLastName();
 
 	/**
-	 * Serial key of the license, given to the user via e-mail.
+	 * Serial key of the license, given to the user via e-mail and used for license activation.
 	 *
 	 * @return the license serial key
 	 */
@@ -74,9 +74,9 @@ public interface License {
 
 	/**
 	 * Variant description of the product associated with this license (e.g. "enterprise", "professional", etc).
-	 * Will be blank if no variants exist.
+	 * Will be blank if no variant exists (i.e. license is a trial or the product has a single default variant).
 	 *
-	 * @return the product variant.
+	 * @return the product variant description.
 	 */
 	String getProductVariant();
 
@@ -90,12 +90,12 @@ public interface License {
 	/**
 	 * The license expiration date, if any. The license won't be valid after the given expiration date.
 	 *
-	 * @return the license expiration date.
+	 * @return the license expiration date or {@code null} if the license doesn't expire.
 	 */
 	Calendar getLicenseExpirationDate();
 
 	/**
-	 * The support end date. The license won't work with product versions released after this date..
+	 * The support end date. The license won't work with product versions released after this date.
 	 *
 	 * @return the license support end date.
 	 */

@@ -9,15 +9,17 @@ package com.univocity.api.license;
 
 import java.io.*;
 
+import static com.univocity.api.license.LicenseValidationResult.*;
+
 /**
  * Exception for notification of license registration errors that may happen when activating a license with
  * <ul>
- *     <li>{@link LicenseManager#assignTrial(String, String, String)}</li>
- *     <li>{@link LicenseManager#assignLicense(String, String, String, String)}}</li>
- *     <li>{@link LicenseManager#assignLicense(File)}</li>
+ * <li>{@link LicenseManager#assignTrial(String, String, String)}</li>
+ * <li>{@link LicenseManager#assignLicense(String, String, String, String)}}</li>
+ * <li>{@link LicenseManager#assignLicense(File)}</li>
  * </ul>
  *
- *
+ * It wraps a {@link LicenseValidationResult} enum to assist in handling the errors.
  */
 public class LicenseRegistrationException extends Exception {
 
@@ -25,15 +27,34 @@ public class LicenseRegistrationException extends Exception {
 
 	private final LicenseValidationResult validationResult;
 
+	/**
+	 * Creates a new license registration exception caused by a license validation error.
+	 *
+	 * @param validationResult the type of validation error
+	 * @param message          the description of the error, with license-specific details about what went wrong.
+	 */
 	public LicenseRegistrationException(LicenseValidationResult validationResult, String message) {
-		this(validationResult, message, null);
-	}
-
-	public LicenseRegistrationException(LicenseValidationResult validationResult, String message, Throwable cause) {
-		super(message, cause);
+		super(message, null);
 		this.validationResult = validationResult;
 	}
 
+	/**
+	 * Creates a new license registration exception caused by a system error. Method {@link #getValidationResult()}
+	 * will return {@link LicenseValidationResult#ERROR}
+	 *
+	 * @param message the description of the error.
+	 * @param cause   the cause of the error.
+	 */
+	public LicenseRegistrationException(String message, Throwable cause) {
+		super(message, cause);
+		this.validationResult = ERROR;
+	}
+
+	/**
+	 * Returns the error type that occurred when processing the license registration.
+	 *
+	 * @return the type of error raised when processing the license.
+	 */
 	public LicenseValidationResult getValidationResult() {
 		return validationResult;
 	}

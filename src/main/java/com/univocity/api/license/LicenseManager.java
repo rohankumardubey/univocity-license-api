@@ -146,8 +146,8 @@ public interface LicenseManager {
 	 * validation, the {@link LicenseValidationAction} provided as a parameter to this method will be called. If both
 	 * offline and online validation produce the same result the {@link LicenseValidationAction} won't be called.
 	 *
-	 * If the license server can't be reached, the license information can be updated manually by obtaining a license
-	 * file and passing it to the method {@link #assignLicense(File)}.
+	 * If the client code runs offline and license server can't be reached, updates to the license can only be performed
+	 * manually by obtaining a updated license file and passing it to the method {@link #assignLicense(File)}.
 	 *
 	 * @param licenseValidationAction action to be performed once the remote license validation completed. A
 	 *                                {@link LicenseValidationResult} will be sent to the caller via

@@ -71,9 +71,9 @@ public interface LicenseManager {
 	 *
 	 * @return a license for this product, assigned to the current hardware.
 	 *
-	 * @throws LicenseAssignmentException if any error occurs assigning the license
+	 * @throws LicenseRegistrationException if any error occurs assigning the license
 	 */
-	License assignLicense(final File licenseFile) throws LicenseAssignmentException;
+	License assignLicense(final File licenseFile) throws LicenseRegistrationException;
 
 	/**
 	 * Assigns a license for this product to a user. The information provided in the parameters and the hardware
@@ -92,9 +92,9 @@ public interface LicenseManager {
 	 *
 	 * @return a license for this product, assigned to the given user and current hardware.
 	 *
-	 * @throws LicenseAssignmentException if any error occurs assigning the license
+	 * @throws LicenseRegistrationException if any error occurs assigning the license
 	 */
-	License assignLicense(String email, String firstName, String lastName, String serialKey) throws LicenseAssignmentException;
+	License assignLicense(String email, String firstName, String lastName, String serialKey) throws LicenseRegistrationException;
 
 	/**
 	 * Assigns a trial license for this product to a user. The information provided in the parameters and the hardware
@@ -110,9 +110,9 @@ public interface LicenseManager {
 	 *
 	 * @return a trial license for this product, assigned to the given user and current hardware.
 	 *
-	 * @throws LicenseAssignmentException if any error occurs assigning the trial license
+	 * @throws LicenseRegistrationException if any error occurs assigning the trial license
 	 */
-	License assignTrial(String email, String firstName, String lastName) throws LicenseAssignmentException;
+	License assignTrial(String email, String firstName, String lastName) throws LicenseRegistrationException;
 
 	/**
 	 * Returns the license associated with the current product, user and hardware, if available.
@@ -140,7 +140,7 @@ public interface LicenseManager {
 	 * The remote validation result is cached locally and in the server for a few hours. Subsequent calls to this method
 	 * will produce the previous validation result immediately.
 	 *
-	 * The remote synchronization and validation uses the servers provided by {@link Store#licenseServerDomains()})
+	 * The remote synchronization and validation uses the server provided by {@link Store#licenseServerDomain()})
 	 * and is potentially slow. If any changes have been applied to the license (revoke, renewal, etc) the locally stored
 	 * license will be updated accordingly, and if the online validation result is different from the initial offline
 	 * validation, the {@link LicenseValidationAction} provided as a parameter to this method will be called. If both

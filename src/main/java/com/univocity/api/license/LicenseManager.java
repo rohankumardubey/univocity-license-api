@@ -24,7 +24,7 @@ public interface LicenseManager {
 	 * Returns the path where the license for this particular product version is expected to be located.
 	 *
 	 * The license file is not mandatory and it will only be this file will only be used if a license can't be found on the
-	 * operating-system store.
+	 * operating-system store. Use {@code setLicenseFilePath(null)} to disable usage of local files.
 	 *
 	 * Defaults to  {@code [user.home]/.[store name]/[product_variant_version]/license}. If the {@code user.home} can't
 	 * be determined the relative path {@code .[store name]/[product_variant_version]/license} will be used.
@@ -36,8 +36,8 @@ public interface LicenseManager {
 	/**
 	 * Defines the path where the license for this particular product version is expected to be located.
 	 *
-	 * The license file is not mandatory and it will only be this file will only be used if a license can't be found on the
-	 * operating-system store.
+	 * The license file is not mandatory and it this file will only be used if a license can't be found on the
+	 * operating-system store. Use {@code setLicenseFilePath(null)} to disable usage of local files.
 	 *
 	 * Defaults to  {@code [user.home]/.[store name]/[product_variant_version]/license}. If the {@code user.home} can't
 	 * be determined the relative path {@code .[store name]/[product_variant_version]/license} will be used.

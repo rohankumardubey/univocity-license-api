@@ -107,4 +107,33 @@ public interface License {
 	 * @return the license text.
 	 */
 	String toString();
+
+	/**
+	 * Returns a formatted {@code String} representation of the date when the current product version was released.
+	 *
+	 * @param datePattern the date mask to be used to format the date.
+	 *
+	 * @return the release date of this particular product version, formatted according to the given date pattern.
+	 */
+	String getVersionReleaseDate(String datePattern);
+
+	/**
+	 * Returns a formatted {@code String} representation of the license expiration date, if available. Otherwise
+	 * {@code null}
+	 *
+	 * @param datePattern the date mask to be used to format the date.
+	 *
+	 * @return the formatted license expiration date or {@code null} if the license doesn't expire.
+	 */
+	String getLicenseExpirationDate(String datePattern);
+
+	/**
+	 * Returns a formatted {@code String} representation of the support end date. The license won't work with product
+	 * versions released after this date.
+	 *
+	 * @param datePattern the date mask to be used to format the date.
+	 *
+	 * @return the formatted license support end date.
+	 */
+	String getSupportEndDate(String datePattern);
 }

@@ -159,4 +159,9 @@ public interface LicenseManager {
 	 */
 	LicenseValidationResult validate(LicenseValidationAction licenseValidationAction);
 
+	/**
+	 * Deletes the license information stored locally, forcing the user to register the license again.
+	 */
+	void deleteLicense();
+
 }

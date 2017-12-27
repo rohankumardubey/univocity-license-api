@@ -37,10 +37,6 @@ public final class Store {
 
 		licenseServerDomain = clearDomainName(licenseServerDomain);
 
-		if (licenseServerDomain.contains("univocity.")) {
-			throw new IllegalArgumentException("Can't use univocity.* as a license server");
-		}
-
 		this.licenseServerDomain = licenseServerDomain;
 	}
 

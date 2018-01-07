@@ -85,8 +85,6 @@ public interface LicenseManager {
 	 * recommended to prevent locking up your user interface (if applicable).
 	 *
 	 * @param email     e-mail address of the user to whom a license was assigned.
-	 * @param firstName first name the user to whom a license was  assigned.
-	 * @param lastName  last name of the user to whom a license was assigned.
 	 * @param serialKey the license key associated with the given user. The serial should have been e-mailed to the
 	 *                  {@code email} address provided beforehand.
 	 *
@@ -94,7 +92,7 @@ public interface LicenseManager {
 	 *
 	 * @throws LicenseRegistrationException if any error occurs assigning the license
 	 */
-	License assignLicense(String email, String firstName, String lastName, String serialKey) throws LicenseRegistrationException;
+	License assignLicense(String email, String serialKey) throws LicenseRegistrationException;
 
 	/**
 	 * Assigns a trial license for this product to a user. The information provided in the parameters and the hardware
@@ -118,7 +116,7 @@ public interface LicenseManager {
 	 * Returns the license associated with the current product, user and hardware, if available.
 	 *
 	 * If no license information is found, the license can be obtained from the license server using
-	 * {@link #assignLicense(String, String, String, String)} or {@link #assignTrial(String, String, String)}.
+	 * {@link #assignLicense(String, String)} or {@link #assignTrial(String, String, String)}.
 	 * Alternatively, a license can be assigned offline using a
 	 * license file and calling the {@link #assignLicense(File)} method to activate it.
 	 *
@@ -163,5 +161,12 @@ public interface LicenseManager {
 	 * Deletes the license information stored locally, forcing the user to register the license again.
 	 */
 	void deleteLicense();
+
+	/**
+	 * Returns the {@link Product} managed by the license manager.
+	 *
+	 * @return the {@link Product} associated with this license manager.
+	 */
+	Product getProduct();
 
 }

@@ -169,4 +169,14 @@ public interface LicenseManager {
 	 */
 	Product getProduct();
 
+	/**
+	 * Convenience method to return the name of the product followed by its variant description, if any.
+	 * The variant may determined by the license or be part of the product information itself. If the variant information
+	 * is available (from either product information, or the license currently assigned), the description returned will
+	 * be in the format {@code "product_name - variant_description"}, otherwise only the product name will be returned.
+	 *
+	 * @return a description of the current product, including its variant if available.
+	 */
+	String getProductDescription();
+
 }

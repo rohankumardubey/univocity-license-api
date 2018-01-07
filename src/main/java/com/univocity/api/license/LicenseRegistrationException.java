@@ -15,7 +15,7 @@ import static com.univocity.api.license.LicenseValidationResult.*;
  * Exception for notification of license registration errors that may happen when activating a license with
  * <ul>
  * <li>{@link LicenseManager#assignTrial(String, String, String)}</li>
- * <li>{@link LicenseManager#assignLicense(String, String, String, String)}}</li>
+ * <li>{@link LicenseManager#assignLicense(String, String)}}</li>
  * <li>{@link LicenseManager#assignLicense(File)}</li>
  * </ul>
  *

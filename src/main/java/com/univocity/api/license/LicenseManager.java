@@ -10,6 +10,7 @@ package com.univocity.api.license;
 import com.univocity.api.license.details.*;
 
 import java.io.*;
+import java.net.*;
 
 /**
  * A validator for licenses of any given product whose information is provided by {@link Product}.
@@ -178,5 +179,41 @@ public interface LicenseManager {
 	 * @return a description of the current product, including its variant if available.
 	 */
 	String getProductDescription();
+
+	/**
+	 * Configures the license manager to connect to the license server through a proxy, with authentication.
+	 *
+	 * @param proxyType an optional existing proxy configuration.
+	 * @param proxyHost the proxy host.
+	 * @param proxyPort the proxy port.
+	 * @param user      the proxy user.
+	 * @param password  the proxy password
+	 */
+	void setProxy(Proxy.Type proxyType, String proxyHost, int proxyPort, String user, String password);
+
+	/**
+	 * Configures the license manager to connect to the license server through a proxy, with authentication.
+	 *
+	 * @param proxy    the proxy to be used
+	 * @param user     the proxy user.
+	 * @param password the proxy password
+	 */
+	void setProxy(Proxy proxy, String user, String password);
+
+	/**
+	 * Configures the license manager to connect to the license server through a proxy, without authentication.
+	 *
+	 * @param proxyType an optional existing proxy configuration.
+	 * @param proxyHost the proxy host.
+	 * @param proxyPort the proxy port.
+	 */
+	void setProxy(Proxy.Type proxyType, String proxyHost, int proxyPort);
+
+	/**
+	 * Configures the license manager to connect to the license server through a proxy, without authentication.
+	 *
+	 * @param proxy the proxy to be used
+	 */
+	void setProxy(Proxy proxy);
 
 }

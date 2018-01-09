@@ -237,4 +237,60 @@ public interface LicenseManager {
 	 */
 	char[] getProxyPassword();
 
+	/**
+	 * Defines the license agreement terms of your product in plain text (optional). Useful for command-line license
+	 * activation.
+	 *
+	 * This is displayed to users during the license activation process. If you provide a non-null value, users must
+	 * agree to the terms provided before their license can be activated.
+	 *
+	 * @param licenseAgreementText the terms of your license, in plain text.
+	 */
+	void setLicenseAgreementText(String licenseAgreementText);
+
+	/**
+	 * Defines the license agreement terms of your product in HTML (optional). Useful for UI-based license
+	 * activation. If {@code null} then the plain text version will be used if available.
+	 *
+	 * This is displayed to users during the license activation process. If you provide a non-null value, or
+	 * if {@link #getLicenseAgreementText()} returns a non-null value, users must agree to the terms provided before
+	 * their license can be activated.
+	 *
+	 * @param licenseAgreementHtml the terms of your license, in HTML.
+	 */
+	void setLicenseAgreementHtml(String licenseAgreementHtml);
+
+	/**
+	 * Returns the license agreement terms of your product in plain text. Useful for command-line license
+	 * activation.
+	 *
+	 * This is displayed to users during the license activation process. If a non-null value is returned, users will
+	 * have to agree to the terms provided before their license can be activated.
+	 *
+	 * @return the terms of your license, in plain text.
+	 */
+	String getLicenseAgreementText();
+
+	/**
+	 * Returns the license agreement terms of your product in HTML. Useful for UI-based license activation.
+	 *
+	 * This is displayed to users during the license activation process. If a non-null value is returned, users will
+	 * have to agree to the terms provided before their license can be activated.
+	 *
+	 * @return the terms of your license, in HTML.
+	 */
+	String getLicenseAgreementHtml();
+
+	/**
+	 * Returns the license agreement terms of your product in HTML if available, or plain text. Useful for
+	 * UI-based license activation. Command-line license activation should not rely on this method as it may return
+	 * HTML without any rendering.
+	 *
+	 * This is displayed to users during the license activation process. If a non-null value is returned, users will
+	 * have to agree to the terms provided before their license can be activated.
+	 *
+	 * @return the terms of your license, in HTML or plain text.
+	 */
+	String getLicenseAgreement();
+
 }

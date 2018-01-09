@@ -216,4 +216,25 @@ public interface LicenseManager {
 	 */
 	void setProxy(Proxy proxy);
 
+	/**
+	 * Returns the configured proxy to be used to connect to the license server.
+	 *
+	 * @return the proxy.
+	 */
+	Proxy getProxy();
+
+	/**
+	 * Returns the username to authenticate with the configured proxy for connection to the license server.
+	 *
+	 * @return the proxy username.
+	 */
+	String getProxyUser();
+
+	/**
+	 * Returns the password to authenticate with the configured proxy for connection to the license server.
+	 *
+	 * @return the proxy user's password.
+	 */
+	char[] getProxyPassword();
+
 }

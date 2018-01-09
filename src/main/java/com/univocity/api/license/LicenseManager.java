@@ -187,18 +187,18 @@ public interface LicenseManager {
 	 * @param proxyHost the proxy host.
 	 * @param proxyPort the proxy port.
 	 * @param user      the proxy user.
-	 * @param password  the proxy password
+	 * @param password  the proxy password (the char array will be copied)
 	 */
-	void setProxy(Proxy.Type proxyType, String proxyHost, int proxyPort, String user, String password);
+	void setProxy(Proxy.Type proxyType, String proxyHost, int proxyPort, String user, char[] password);
 
 	/**
 	 * Configures the license manager to connect to the license server through a proxy, with authentication.
 	 *
 	 * @param proxy    the proxy to be used
 	 * @param user     the proxy user.
-	 * @param password the proxy password
+	 * @param password the proxy password (the char array will be copied)
 	 */
-	void setProxy(Proxy proxy, String user, String password);
+	void setProxy(Proxy proxy, String user, char[] password);
 
 	/**
 	 * Configures the license manager to connect to the license server through a proxy, without authentication.

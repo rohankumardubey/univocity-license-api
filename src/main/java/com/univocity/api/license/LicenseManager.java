@@ -9,6 +9,7 @@ package com.univocity.api.license;
 
 import com.univocity.api.license.details.*;
 
+import java.awt.*;
 import java.io.*;
 import java.net.*;
 
@@ -306,5 +307,56 @@ public interface LicenseManager {
 	 * @return the terms of your license, in HTML or plain text.
 	 */
 	String getLicenseAgreement();
+
+	/**
+	 * Starts the appropriate license management user interface based on the user's graphics environment. Essentially, if
+	 * {@link GraphicsEnvironment#isHeadless()} evaluates to {@code true} the command line interface will be started
+	 * (same as {@link #startCmd()}); otherwise the license manager dialog will be displayed (same as {@link #startGui()})
+	 */
+	void start();
+
+	/**
+	 * Displays a license management window to allow users request an evaluation license, activate/deactivate their
+	 * purchased license and configure a proxy to be able to access the license server if required.
+	 */
+	void startGui();
+
+	/**
+	 * Displays a license management command-line interface to allow users request an evaluation license,
+	 * activate/deactivate their purchased license and configure a proxy to be able to access the license server if required.
+	 */
+	void startCmd();
+
+	/**
+	 * Defines an icon image to be used on the windows and dialogs displayed to the user when
+	 * {@link #startGui()} is called.
+	 *
+	 * @param icon an icon for the license management UI
+	 */
+	void setIcon(Image icon);
+
+	/**
+	 * Defines a logo to be displayed at the top of the license management window displayed when {@link #startGui()}}
+	 * is called.
+	 *
+	 * @param logo a logo for the license management UI
+	 */
+	void setLogo(Image logo);
+
+	/**
+	 * Returns the icon image to be used on the windows and dialogs displayed to the user when
+	 * {@link #startGui()} is called.
+	 *
+	 * @return an icon for the license management UI
+	 */
+	Image getIcon();
+
+	/**
+	 * Returns the logo to be displayed at the top of the license management window displayed when {@link #startGui()}}
+	 * is called.
+	 *
+	 * @return the logo to be displayed by the license management UI
+	 */
+	Image getLogo();
 
 }

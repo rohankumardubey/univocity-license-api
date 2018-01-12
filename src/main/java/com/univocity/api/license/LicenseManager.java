@@ -224,6 +224,20 @@ public interface LicenseManager {
 	Proxy getProxy();
 
 	/**
+	 * Returns the configured proxy hostname to be used to connect to the license server.
+	 *
+	 * @return the proxy host.
+	 */
+	String getProxyHost();
+
+	/**
+	 * Returns the configured proxy port to be used to connect to the license server.
+	 *
+	 * @return the proxy port.
+	 */
+	int getProxyPort();
+
+	/**
 	 * Returns the username to authenticate with the configured proxy for connection to the license server.
 	 *
 	 * @return the proxy username.

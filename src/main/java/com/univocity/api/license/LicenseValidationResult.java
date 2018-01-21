@@ -20,64 +20,70 @@ public enum LicenseValidationResult {
 	/**
 	 * The license registration details are incomplete.
 	 */
-	INCOMPLETE,
+	INCOMPLETE(1),
 	/**
 	 * The license has expired, i.e. {@link License#getLicenseExpirationDate()} is not {@code null} and the current date
 	 * is after the expiration date.
 	 */
-	EXPIRED,
+	EXPIRED(2),
 	/**
 	 * The current version of the software being used is not supported by the current license, i.e.
 	 * {@link License#getSupportEndDate()} is not {@code null} and {@link ProductVersion#releaseDate()} is after the
 	 * support end date.
 	 */
-	SUPPORT_ENDED,
+	SUPPORT_ENDED(3),
 
 	/**
 	 * Indicates the current hardware doesn't match the original hardware signature from when the license was generated.
 	 * The license can be reassigned to the current hardware using {@link LicenseManager#assignLicense(File)}
 	 * or {@link LicenseManager#assignLicense(String, String)}
 	 */
-	UNKNOWN_HOST,
+	UNKNOWN_HOST(4),
 
 	/**
 	 * Indicates that the current license is a trial and the trial period has ended
 	 */
-	TRIAL_EXPIRED,
+	TRIAL_EXPIRED(5),
 
 	/**
 	 * Indicates the user tried to register for a trial license for a second time. This error is only returned by the
 	 * remote server.
 	 */
-	RETRIAL_ATTEMPTED,
+	RETRIAL_ATTEMPTED(6),
 
 	/**
 	 * There is no license present locally. Note that license validation process will update the local license after
 	 * every call to {@link LicenseManager#validate(LicenseValidationAction)}. If the license got reassigned to someone
 	 * else the local license will be deleted.
 	 */
-	NOT_FOUND,
+	NOT_FOUND(7),
 
 	/**
 	 * Indicates the license is invalid, i.e. product or registration information doesn't match, or license has been
 	 * tampered with.
 	 */
-	INVALID,
+	INVALID(8),
 
 	/**
 	 * Returned by the remote server to indicate that trial licenses have been disabled, or that a purchased license has
 	 * been reassigned to someone else. The local license will be removed automatically and further calls to
 	 * {@link LicenseManager#validate(LicenseValidationAction)} should produce {@link #NOT_FOUND}
 	 */
-	DISABLED,
+	DISABLED(9),
 
 	/**
 	 * The license is valid
 	 */
-	VALID,
+	VALID(10),
 
 	/**
 	 * An internal error occurred while validating the license. Does not mean that the license is invalid.
 	 */
-	ERROR
+	ERROR(0);
+
+	public final int code;
+
+	LicenseValidationResult(int code){
+		this.code = code;
+	}
 }

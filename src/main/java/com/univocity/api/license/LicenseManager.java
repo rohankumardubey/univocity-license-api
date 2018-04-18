@@ -25,7 +25,7 @@ public interface LicenseManager {
 	/**
 	 * Returns the path where the license for this particular product version is expected to be located.
 	 *
-	 * The license file is not mandatory and it will only be this file will only be used if a license can't be found on the
+	 * The license file is not mandatory and will only be used if a license can't be found on the
 	 * operating-system store. Use {@code setLicenseFilePath(null)} to disable usage of local files.
 	 *
 	 * Defaults to  {@code [user.home]/.[store name]/[product_variant_version]/license}. If the {@code user.home} can't
@@ -44,10 +44,12 @@ public interface LicenseManager {
 	 * Defaults to  {@code [user.home]/.[store name]/[product_variant_version]/license}. If the {@code user.home} can't
 	 * be determined the relative path {@code .[store name]/[product_variant_version]/license} will be used.
 	 *
-	 * Upon calling this method, the given path will be tested: the directory path will be created if it doesn't exist,
-	 * and a dummy license file will be created if no license file exists. If a license file already exists at the given path,
-	 * it must have read and write permissions. This method will return {@code false} if the given path causes any of the
-	 * aforementioned validations to fail.
+	 * Upon calling this method, the given path will be tested using the following steps:
+	 *  - the given directory path will be created if it doesn't exist;
+	 *  - a dummy license file will be created in that directory if no license file exists;
+	 *  - if a license file already exists at the given path, it must have read and write permissions.
+	 *
+	 * This method will return {@code false} if the given path causes any of the aforementioned validations to fail.
 	 *
 	 * @param licenseFilePath the path to the license file.
 	 *

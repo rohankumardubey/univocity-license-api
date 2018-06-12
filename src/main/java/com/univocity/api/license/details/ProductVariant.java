@@ -27,10 +27,9 @@ public final class ProductVariant {
 	 */
 	public ProductVariant(Long id, String description) {
 		Args.positiveOrZero(id, "Variant ID");
-		Args.notBlank(description, "Variant description");
 
 		this.id = id;
-		this.description = description;
+		this.description = description == null ? "" : description.trim();
 	}
 
 	/**

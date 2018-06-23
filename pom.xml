@@ -13,7 +13,12 @@
 	<version>1.0.0</version>
 	<name>univocity-license-api</name>
 	<description>Utility classes for software license management</description>
-	<packaging>jar</packaging>
+
+	<organization>
+		<name>uniVocity Software Pty Ltd</name>
+		<url>www.univocitysoftware.com</url>
+	</organization>
+
 	<url>https://github.com/uniVocity/univocity-license-api</url>
 
 	<licenses>
@@ -26,19 +31,14 @@
 	</licenses>
 
 	<issueManagement>
-		<system>BitBucket Issues</system>
+		<system>GitHub Issues</system>
 		<url>https://github.com/uniVocity/univocity-license-api/issues</url>
 	</issueManagement>
-
-	<organization>
-		<name>uniVocity Software Pty Ltd</name>
-		<url>www.univocitysoftware.com</url>
-	</organization>
 
 	<scm>
 		<url>https://github.com/uniVocity/univocity-license-api</url>
 		<connection>scm:git:git://github.com/uniVocity/univocity-license-api.git</connection>
-		<developerConnection>scm:git:git@github.com/uniVocity/univocity-license-api.git</developerConnection>
+		<developerConnection>scm:git:git@github.com:uniVocity/univocity-license-api.git</developerConnection>
 	</scm>
 
 	<developers>
@@ -56,6 +56,18 @@
 		</developer>
 	</developers>
 
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -70,8 +82,30 @@
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.17</version>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
 			<plugin>
@@ -123,6 +157,28 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>project</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.2</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>false</autoReleaseAfterClose>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

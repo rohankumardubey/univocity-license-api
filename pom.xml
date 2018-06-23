@@ -9,16 +9,25 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.univocity</groupId>
-	<artifactId>univocity-common-license-api</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
-	<name>univocity-common-license-api</name>
+	<artifactId>univocity-license-api</artifactId>
+	<version>1.0.0</version>
+	<name>univocity-license-api</name>
 	<description>Utility classes for software license management</description>
 	<packaging>jar</packaging>
-	<url>https://github.com/uniVocity/univocity-common-license-api</url>
+	<url>https://github.com/uniVocity/univocity-license-api</url>
+
+	<licenses>
+		<license>
+			<name>Univocity</name>
+			<url>http://www.univocity.com/pages/license</url>
+			<distribution>repo</distribution>
+			<comments>Univocity license</comments>
+		</license>
+	</licenses>
 
 	<issueManagement>
 		<system>BitBucket Issues</system>
-		<url>https://github.com/uniVocity/univocity-common-license-api/issues</url>
+		<url>https://github.com/uniVocity/univocity-license-api/issues</url>
 	</issueManagement>
 
 	<organization>
@@ -27,9 +36,9 @@
 	</organization>
 
 	<scm>
-		<url>https://github.com/uniVocity/univocity-common-license-api</url>
-		<connection>scm:git:git://github.com/uniVocity/univocity-common-license-api.git</connection>
-		<developerConnection>scm:git:git@github.com/uniVocity/univocity-common-license-api.git</developerConnection>
+		<url>https://github.com/uniVocity/univocity-license-api</url>
+		<connection>scm:git:git://github.com/uniVocity/univocity-license-api.git</connection>
+		<developerConnection>scm:git:git@github.com/uniVocity/univocity-license-api.git</developerConnection>
 	</scm>
 
 	<developers>
@@ -116,36 +125,6 @@
 				</executions>
 			</plugin>
 		</plugins>
-
-		<pluginManagement>
-			<!-- All this crap just to remove a warning from my eclipse workspace... -->
-			<plugins>
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.apache.maven.plugins</groupId>
-										<artifactId>maven-enforcer-plugin</artifactId>
-										<versionRange>[1.0.0,)</versionRange>
-										<goals>
-											<goal>enforce</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore/>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 	</build>
 
 	<properties>
@@ -157,7 +136,7 @@
 		<dependency>
 			<groupId>com.univocity</groupId>
 			<artifactId>univocity-common-api</artifactId>
-			<version>2.0.0-SNAPSHOT</version>
+			<version>2.0.0</version>
 		</dependency>
 	</dependencies>
 

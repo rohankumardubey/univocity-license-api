@@ -15,11 +15,11 @@
 	<description>Utility classes for software license management</description>
 
 	<organization>
-		<name>uniVocity Software Pty Ltd</name>
+		<name>Univocity Software Pty Ltd</name>
 		<url>www.univocitysoftware.com</url>
 	</organization>
 
-	<url>https://github.com/uniVocity/univocity-license-api</url>
+	<url>https://github.com/univocity/univocity-license-api</url>
 
 	<licenses>
 		<license>
@@ -32,13 +32,13 @@
 
 	<issueManagement>
 		<system>GitHub Issues</system>
-		<url>https://github.com/uniVocity/univocity-license-api/issues</url>
+		<url>https://github.com/univocity/univocity-license-api/issues</url>
 	</issueManagement>
 
 	<scm>
-		<url>https://github.com/uniVocity/univocity-license-api</url>
-		<connection>scm:git:git://github.com/uniVocity/univocity-license-api.git</connection>
-		<developerConnection>scm:git:git@github.com:uniVocity/univocity-license-api.git</developerConnection>
+		<url>https://github.com/univocity/univocity-license-api</url>
+		<connection>scm:git:git://github.com/univocity/univocity-license-api.git</connection>
+		<developerConnection>scm:git:git@github.com:univocity/univocity-license-api.git</developerConnection>
 	</scm>
 
 	<developers>
@@ -51,7 +51,7 @@
 
 		<developer>
 			<id>dev</id>
-			<name>uniVocity development team</name>
+			<name>univocity development team</name>
 			<email>dev@univocity.com</email>
 		</developer>
 	</developers>

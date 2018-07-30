@@ -31,16 +31,11 @@ TERMS AND CONDITIONS
  
   2. SOFTWARE
 
-     2.1. Univocity grants the User the right to download and use the Software
-          with the particular license available to the User according to the
-          license type. This right is a non-exclusive, non-transferable, and
-          limited by and subject to this Agreement.
+     2.1. Univocity grants the User the right to download and use the Software.
 
      2.2. Univocity may, upon request by the User, customize the Software to
           meet the particular needs of the User. It is at our sole discretion,
-          whether or not we customize the Software for you. If we agree to
-          customize the Software for you, an agreement will be drafted between
-          Univocity and you, outlining the terms and conditions for doing so.
+          whether or not we customize the Software for you.
 
      2.3. The Software operates within the User's computing system (End User
           System). The Software is a library which provides a framework for
@@ -50,17 +45,12 @@ TERMS AND CONDITIONS
           instructions on how to configure and use the Software. To use the
           Software, the User must first integrate the Software into their
           computing systems through configuration and other components developed
-           by the User.
+          by the User.
 
      2.5. Software components developed by the User and the Software provided by
           Univocity will have to be integrated to enable our Software to run.
           The Software provided by Univocity is part of a software solution
           which is dependent on how the Users own software components behave.
-
-     2.6. Univocity will provide you with updates for the Software (Software
-          Updates) in accordance with the form of Upgrade Support outlined in
-          this Agreement. Software Updates will be valid only while your License
-          is valid.
 
   3. ACCOUNT AND LICENSE
 
@@ -78,55 +68,18 @@ TERMS AND CONDITIONS
      
      3.4. The License is perpetual.
      
-     3.5. To use the Software, the User must have a License, which must be
-          obtained on our Site and activated by our Software.
+     3.5. To use the Software, the User must subscribe to a License, which is
+          obtained via installation of our Shopify App and activated by our
+          Software.
      
-     3.6. A License will be generated for the computer that the Software will be
-          executed on.
-     
-     3.7. You will be required to pay a set fee for each License (License Fee)
-          as set out on our Site.
-     
-     3.8. The User is encouraged to obtain a Trial License, to determine whether
-          the Software is suitable for their needs, prior to the purchase of a
-          License.
-     
-     3.9. The License is valid only for one computer at a time. A new License
-          must be purchased for each additional computer from our Site.
-     
-     3.10. We will provide the License details to you via email.
-     
-     3.11. The License can be transferred to a new user, computer or a new
-           computing system multiple times. You will have to reassign the
-           licenses from our Site.
-     
-     3.12. No License, with Trial Licenses excepted, will be sent to the User
-           until payment is confirmed.
-     
-     3.13. Each License comes with one year upgrade support which allows you to
-           upgrade to newer versions of the Software for a period of one year
-           from the License purchase date. If you wish to continue upgrading the
-           Software, you must renew the License by making appropriate payment
-           for renewal. This payment can be made prior or after expiration,
-           but you will not be able to access the updated version of the
-           Software until payment is received.
- 
   4. PAYMENT
 
-     4.1. When purchasing a License, the User will agree to pay the License Fee
-          as required.
+     4.1. You will be required to pay a monthly recurring fee plus usage-based
+          fees as set out on our Site.
 
-     4.2. The User may make payment by way of direct transfer or credit card.
-          We will provide you with our bank details.
- 
   5. TERMINATION
 
-     5.1. Prior to purchasing an License, the User is encouraged to evaluate the
-          Software by obtaining a Trial License.
-     
-     5.2. The Trial License will automatically expire after 14 days.
-     
-     5.3. We may terminate the Terms immediately, in our sole discretion, if:
+     5.1. We may terminate the Terms immediately, in our sole discretion, if:
      
         (a) you breach any of these Terms and do not remedy the breach within
             30 days after receiving notice of the breach if the breach is
@@ -148,11 +101,11 @@ TERMS AND CONDITIONS
             compromising our ability to provide you with the required Software
             or License within a required timeframe.
      
-     5.4. Event after termination, we will retain your documents (including
-          copies) as required by law or regularity requirements. Your express or
-          implied agreement to the Terms constitutes your authority for us to
-          retain or destroy documents in accordance with the statutory periods,
-          or on termination of these Terms.
+     5.2. On termination of your License, we will retain your documents
+          (including copies) as required by law or regulatory requirements. Your
+          express or implied agreement to the Terms constitutes your authority
+          for us to retain or destroy documents in accordance with the statutory
+          periods, or on termination of these Terms.
 
   6. USER OBLIGATONS
 
@@ -188,10 +141,10 @@ TERMS AND CONDITIONS
            meets the needs of the User and their business, and is suitable for
            the purposes for which the Software is used; and
 
-       (h) the Trial License is available to each User to evaluate the Software
+       (h) a Trial period is available to each User to evaluate the Software
            and determine its suitability and compatibility with User development
            environment and systems and its suitability for the User's needs,
-           prior to purchasing a License.
+           prior to subscribing to a License.
 
      6.3. You may use the Software and the Site on behalf of others or in order
           to provide services to others but if you do so you must ensure that
@@ -341,20 +294,16 @@ TERMS AND CONDITIONS
 
      10.2. In the event that Univocity offers services to customize, modify
            and/or enhance any Software licensed by the User, or to develop
-           programs, software or materials related to such Software, the User
-           may contract with Univocity to provide any such services in a
-           separate agreement. If the Parties contract for any such services:
+           programs, software or materials related to such Software:
 
-       (a) the Parties shall do so via a validly executed agreement; and
-
-       (b) all items produced via such customization, modification and/or
+       (a) all items produced via such customization, modification and/or
            enhancement services are software products owned by Univocity and all
            Intellectual Property rights remains with Univocity.
 
      10.3. Title to and all Intellectual Property rights in any data you input
            into the Software remain your property. However, your continued use
-           of the Software is contingent on full payment of your License Fee.
-           You will still have access to your data after your License expires.
+           of the Software is contingent on full payment of your License
+           subscription.
 
      10.4. You grant Univocity a license to use, copy, transmit, store, and
            back-up your information and data for the purposes of enabling you to
@@ -382,13 +331,10 @@ TERMS AND CONDITIONS
            require technical support, please contact Univocity at
            support@univocity.com.
 
-     11.2. Univocity provides different levels of support as outlined on the
-           Site.
+     11.2. You acknowledge and agree that no support is provided during the Trial
+           period.
 
-     11.3. You acknowledge and agree that no support is provided for Trial
-           Licenses.
-
-     11.4. Whilst Univocity intends that the Site should be available on a
+     11.3. Whilst Univocity intends that the Site should be available on a
            full-time basis, it is possible that the Site is unavailable to due
            to maintenance or other development activity.
 
@@ -440,17 +386,18 @@ TERMS AND CONDITIONS
            developed by the User, application services or operating systems, as
            it is impossible to test each variant.
 
-     13.3. The Software uses other libraries which are provided without any sort
-           of warranties, and Univocity cannot ensure that these libraries are
-           provided free of defect.
+     13.3. The Software uses other libraries and online services which are
+     	   provided without any sort of warranties, and Univocity cannot ensure
+     	   that these are provided free of defect.
 
      13.4. Univocity does not warrant that use of the Software will be
            uninterrupted or error free. The operation of the Software is
-           dependent on open-source libraries by third parties which are
-           distributed without warranties or conditions of any kind. These may
-           contain errors which may, from time to time, interfere with the use
-           of the Software. Univocity accepts no responsibility for any such
-           interference or prevention of your use of the Software.
+           dependent on remote services and open-source libraries by third
+           parties which are distributed without warranties or conditions of any
+           kind. These may contain errors which may, from time to time,
+           interfere with the use of the Software. Univocity accepts no
+           responsibility for any such interference or prevention of your use of
+           the Software.
 
      13.5. All risk arising out of the use or performance of the Software
            remains with you. You understand and agree that the use of the
@@ -695,4 +642,4 @@ TERMS AND CONDITIONS
 
 --------------------------------------------------------------------------------
 
-Last update: 23 June 2018
+Last update: 29 July 2018

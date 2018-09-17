@@ -65,11 +65,17 @@ public enum LicenseValidationResult {
 	INVALID(8, "Invalid"),
 
 	/**
-	 * Returned by the remote server to indicate that trial licenses have been disabled, or that a purchased license has
+	 * Returned by the remote server to indicate that a purchased license has
 	 * been reassigned to someone else. The local license will be removed automatically and further calls to
 	 * {@link LicenseManager#validate(LicenseValidationAction)} should produce {@link #NOT_FOUND}
 	 */
 	DISABLED(9, "Disabled"),
+
+	/**
+	 * Returned by the remote server to indicate that trial licenses have been disabled.
+	 */
+	TRIALS_DISABLED(11, "Trials disabled"),
+
 
 	/**
 	 * The license is valid

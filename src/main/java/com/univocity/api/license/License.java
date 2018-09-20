@@ -102,7 +102,7 @@ public interface License {
 	Calendar getSupportEndDate();
 
 	/**
-	 * An encoded representation of this license. Used for license validation. Not human readable.
+	 * An {@code String} representation of this license.
 	 *
 	 * @return the license text.
 	 */

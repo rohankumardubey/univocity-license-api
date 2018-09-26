@@ -28,8 +28,11 @@ public interface LicenseManager {
 	 * The license file is not mandatory and will only be used if a license can't be found on the
 	 * operating-system store. Use {@code setLicenseFilePath(null)} to disable usage of local files.
 	 *
-	 * Defaults to  {@code [user.home]/.[store name]/[product_variant_version]/license}. If the {@code user.home} can't
-	 * be determined the relative path {@code .[store name]/[product_variant_version]/license} will be used.
+	 * On Windows, defaults to {@code %APPDATA%/[store name]/[product_variant_version]/license} and
+	 * On Mac/Linux defaults to {@code [user.home]/.local/share/[store name]/[product_variant_version]/license},
+	 * or {@code [user.home]/.[store name]/[product_variant_version]/license} if no {@code .local/share} folder exists under {@code user.home} .
+	 *
+	 * If the {@code user.home} can't be determined the relative path {@code .[store name]/[product_variant_version]/license} will be used.
 	 *
 	 * @return the path to the license file.
 	 */
@@ -41,8 +44,11 @@ public interface LicenseManager {
 	 * The license file is not mandatory and it this file will only be used if a license can't be found on the
 	 * operating-system store. Use {@code setLicenseFilePath(null)} to disable usage of local files.
 	 *
-	 * Defaults to  {@code [user.home]/.[store name]/[product_variant_version]/license}. If the {@code user.home} can't
-	 * be determined the relative path {@code .[store name]/[product_variant_version]/license} will be used.
+	 * On Windows, defaults to {@code %APPDATA%/[store name]/[product_variant_version]/license} and
+	 * On Mac/Linux defaults to {@code [user.home]/.local/share/[store name]/[product_variant_version]/license},
+	 * or {@code [user.home]/.[store name]/[product_variant_version]/license} if no {@code .local/share} folder exists under {@code user.home} .
+	 *
+	 * If the {@code user.home} can't be determined the relative path {@code .[store name]/[product_variant_version]/license} will be used.
 	 *
 	 * Upon calling this method, the given path will be tested using the following steps:
 	 *  - the given directory path will be created if it doesn't exist;

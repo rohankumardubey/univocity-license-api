@@ -76,6 +76,10 @@ public enum LicenseValidationResult {
 	 */
 	TRIALS_DISABLED(11, "Trials disabled"),
 
+	/**
+	 * Indicates an invalid attempt to transfer an existing license to a new user or device.
+	 */
+	LICENSE_TRANSFER_DISABLED(12, "License transfer disabled"),
 
 	/**
 	 * The license is valid

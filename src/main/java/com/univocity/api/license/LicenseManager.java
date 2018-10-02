@@ -10,7 +10,6 @@ package com.univocity.api.license;
 import com.univocity.api.license.details.*;
 
 import java.awt.*;
-import java.io.*;
 import java.net.*;
 
 /**

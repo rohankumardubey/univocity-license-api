@@ -9,8 +9,6 @@ package com.univocity.api.license;
 
 import com.univocity.api.license.details.*;
 
-import java.io.*;
-
 /**
  * Encodes all possible types of license validation results. {@link #VALID} is the only type of result that indicates
  * the license is valid. {@link #ERROR} encodes internal errors during the license validation and does not mean necessarily

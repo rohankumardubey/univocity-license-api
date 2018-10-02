@@ -9,8 +9,6 @@ package com.univocity.api.license.details;
 
 import com.univocity.api.common.*;
 
-import java.util.*;
-
 /**
  * Information required from a product store to enable license validation - both online and offline.
  */

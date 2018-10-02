@@ -7,8 +7,6 @@
 
 package com.univocity.api.license;
 
-import java.io.*;
-
 import static com.univocity.api.license.LicenseValidationResult.*;
 
 /**

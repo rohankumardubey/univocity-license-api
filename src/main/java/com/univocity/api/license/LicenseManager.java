@@ -64,28 +64,6 @@ public interface LicenseManager {
 	boolean setLicenseFilePath(String licenseFilePath);
 
 	/**
-	 * Assigns a license from a file containing one or multiple license entries. If a valid entry is found,
-	 * that entry will be stored in the operating-system store and the file given by {@link #getLicenseFilePath()}.
-	 *
-	 * If the information provided in the chosen entry matches with a license purchase order and its hardware assignment
-	 * details, the server will return the updated signed license details and this information will be stored locally.
-	 *
-	 * If the license server can't be reached, the license information can be updated offline by calling this method again
-	 * with an updated license file.
-	 *
-	 * <strong>NOTE:</strong> this method call may take some time to complete. Running it in a separate thread is
-	 * recommended to prevent locking up your user interface (if applicable).
-	 *
-	 * @param licenseFile a license file containing one or more license entries. It <strong>MUST</strong>
-	 *                    have read permissions.
-	 *
-	 * @return a license for this product, assigned to the current hardware.
-	 *
-	 * @throws LicenseRegistrationException if any error occurs assigning the license
-	 */
-	License assignLicense(final File licenseFile) throws LicenseRegistrationException;
-
-	/**
 	 * Assigns a license for this product to a user. The information provided in the parameters and the hardware
 	 * identity will be sent to the license server to generate a {@link License} object. If the information provided
 	 * matches with a license purchase order and its user assignment details, the server will return the signed license
@@ -127,8 +105,6 @@ public interface LicenseManager {
 	 *
 	 * If no license information is found, the license can be obtained from the license server using
 	 * {@link #assignLicense(String, String)} or {@link #assignTrial(String, String, String)}.
-	 * Alternatively, a license can be assigned offline using a
-	 * license file and calling the {@link #assignLicense(File)} method to activate it.
 	 *
 	 * The {@code License} returned will contain the information stored in the operating-system dependent store. If
 	 * that store is not available, the information will come from the file specified in {@link #getLicenseFilePath()}.
@@ -153,9 +129,6 @@ public interface LicenseManager {
 	 * license will be updated accordingly, and if the online validation result is different from the initial offline
 	 * validation, the {@link LicenseValidationAction} provided as a parameter to this method will be called. If both
 	 * offline and online validation produce the same result the {@link LicenseValidationAction} won't be called.
-	 *
-	 * If the client code runs offline and the license server can't be reached, updates to the license can only be performed
-	 * manually by obtaining a updated license file and passing it to the method {@link #assignLicense(File)}.
 	 *
 	 * @param licenseValidationAction action to be performed once the remote license validation completed. A
 	 *                                {@link LicenseValidationResult} will be sent to the caller via
@@ -182,9 +155,6 @@ public interface LicenseManager {
 	 * and is potentially slow. If any changes have been applied to the license (revoke, renewal, etc) the locally stored
 	 * license will be updated accordingly. Use {@link #validate(LicenseValidationAction)} to handle the remote
 	 * response (asynchronously) when the server returns the validation result.
-	 *
-	 * If the client code runs offline and the license server can't be reached, updates to the license can only be performed
-	 * manually by obtaining a updated license file and passing it to the method {@link #assignLicense(File)}.
 	 *
 	 * @return the result of the offline license validation operation, i.e. whether the current license is valid
 	 * for the current computer, where the license is not expired, the current product version was released within the

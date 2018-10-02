@@ -16,7 +16,6 @@ import static com.univocity.api.license.LicenseValidationResult.*;
  * <ul>
  * <li>{@link LicenseManager#assignTrial(String, String, String)}</li>
  * <li>{@link LicenseManager#assignLicense(String, String)}}</li>
- * <li>{@link LicenseManager#assignLicense(File)}</li>
  * </ul>
  *
  * It wraps a {@link LicenseValidationResult} enum to assist in handling the errors.

@@ -35,8 +35,7 @@ public enum LicenseValidationResult {
 
 	/**
 	 * Indicates the current hardware doesn't match the original hardware signature from when the license was generated.
-	 * The license can be reassigned to the current hardware using {@link LicenseManager#assignLicense(File)}
-	 * or {@link LicenseManager#assignLicense(String, String)}
+	 * The license can be reassigned to the current hardware using {@link LicenseManager#assignLicense(String, String)}
 	 */
 	UNKNOWN_HOST(4, "Unknown host"),
 

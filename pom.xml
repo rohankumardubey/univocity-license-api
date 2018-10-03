@@ -87,9 +87,14 @@
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
+						<phase>package</phase>
 						<goals>
 							<goal>jar</goal>
 						</goals>
+						<configuration>
+							<javadocExecutable>${JDK8_HOME}/bin/javadoc</javadocExecutable>
+							<useStandardDocletOptions>true</useStandardDocletOptions>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

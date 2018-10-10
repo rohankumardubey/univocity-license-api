@@ -126,8 +126,7 @@ public interface LicenseManager {
 	 * The remote synchronization and validation uses the server provided by {@link Store#licenseServerDomain()})
 	 * and is potentially slow. If any changes have been applied to the license (revoke, renewal, etc) the locally stored
 	 * license will be updated accordingly, and if the online validation result is different from the initial offline
-	 * validation, the {@link LicenseValidationAction} provided as a parameter to this method will be called. If both
-	 * offline and online validation produce the same result the {@link LicenseValidationAction} won't be called.
+	 * validation, the {@link LicenseValidationAction} provided as a parameter to this method will be called.
 	 *
 	 * @param licenseValidationAction action to be performed once the remote license validation completed. A
 	 *                                {@link LicenseValidationResult} will be sent to the caller via

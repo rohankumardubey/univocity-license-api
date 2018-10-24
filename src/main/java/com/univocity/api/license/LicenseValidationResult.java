@@ -79,6 +79,12 @@ public enum LicenseValidationResult {
 	LICENSE_TRANSFER_DISABLED(12, "License transfer disabled"),
 
 	/**
+	 * Indicates all licenses in a license pool are in use. Users must release their licenses
+	 * back into the pool or the customer should buy more licenses.
+	 */
+	NO_MORE_LICENSES(13, "No more licenses"),
+
+	/**
 	 * The license is valid
 	 */
 	VALID(10, "Valid"),

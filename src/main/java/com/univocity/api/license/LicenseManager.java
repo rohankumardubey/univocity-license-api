@@ -11,6 +11,7 @@ import com.univocity.api.license.details.*;
 
 import java.awt.*;
 import java.net.*;
+import java.util.concurrent.*;
 
 /**
  * A validator for licenses of any given product whose information is provided by {@link Product}.
@@ -361,4 +362,36 @@ public interface LicenseManager {
 	 */
 	Image getLogo();
 
+	/**
+	 * Checks out a license from the license pool. It must be manually released
+	 * back to the license pool after calling {@link #release()}.
+	 *
+	 * @return a license for this product, assigned to the given user and current hardware.
+	 *
+	 * @throws LicenseRegistrationException if any error occurs checking out the license
+	 */
+	License checkout() throws LicenseRegistrationException;
+
+	/**
+	 * Checks out a license from the license pool, with a given time to live. If this license
+	 * is not manually released back to the license pool with {@link #release()}, it will
+	 * be released automatically after the given expiration time.
+	 *
+	 * @param time the amount of time to elapse until the license is released back to the pool.
+	 * @param timeUnit the unit of time (hours, days) that the given time parameter represents.
+	 *
+	 * @return a license for this product, assigned to the given user and current hardware,
+	 * and valid for the given amount of time.
+	 *
+	 * @throws LicenseRegistrationException if any error occurs checking out the license
+	 */
+	License checkout(long time, TimeUnit timeUnit) throws LicenseRegistrationException;
+
+	/**
+	 * Manually releases the current license, checked out via {@link #checkout()} back to the license pool,
+	 * allowing this license to be used by another user/hardware.
+	 *
+	 * @throws LicenseRegistrationException if any error occurs releasing the license
+	 */
+	void release() throws LicenseRegistrationException;
 }

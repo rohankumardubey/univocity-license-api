@@ -85,6 +85,11 @@ public enum LicenseValidationResult {
 	NO_MORE_LICENSES(13, "No more licenses"),
 
 	/**
+	 * The license has been released
+	 */
+	RELEASED(14, "Released"),
+
+	/**
 	 * The license is valid
 	 */
 	VALID(10, "Valid"),

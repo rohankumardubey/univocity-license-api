@@ -69,12 +69,16 @@ public interface LicenseManager {
 	 * matches with a license purchase order and its user assignment details, the server will return the signed license
 	 * details and this information will be stored locally.
 	 *
+	 * If the e-mail and serial key provided match with the credentials of a license pool,
+	 * a license from that pool will be returned if available, with a different serial key.
+	 * If all licenses in that pool are taken, a {@link LicenseRegistrationException} will
+	 * be thrown with a {@link LicenseValidationResult#NO_MORE_LICENSES} result.
+	 *
 	 * <strong>NOTE:</strong> this method call may take some time to complete. Running it in a separate thread is
 	 * recommended to prevent locking up your user interface (if applicable).
 	 *
 	 * @param email     e-mail address of the user to whom a license was assigned.
-	 * @param serialKey the license key associated with the given user. The serial should have been e-mailed to the
-	 *                  {@code email} address provided beforehand.
+	 * @param serialKey the license key associated with the given user or with a license pool.
 	 *
 	 * @return a license for this product, assigned to the given user and current hardware.
 	 *
@@ -164,8 +168,18 @@ public interface LicenseManager {
 
 	/**
 	 * Deletes the license information stored locally, forcing the user to register the license again.
+	 * To allow users to assign this license to another user/hardware, use {@link #releaseLicense()}.
 	 */
 	void deleteLicense();
+
+	/**
+	 * Manually releases the current license, obtained via {@link #assignLicense(String, String)}},
+	 * allowing this license to be used by another user/hardware. The local license will
+	 * also be deleted.
+	 *
+	 * @throws LicenseRegistrationException if any error occurs releasing the license
+	 */
+	void releaseLicense() throws LicenseRegistrationException;
 
 	/**
 	 * Returns the {@link Product} managed by the license manager.
@@ -361,37 +375,4 @@ public interface LicenseManager {
 	 * @return the logo to be displayed by the license management UI
 	 */
 	Image getLogo();
-
-	/**
-	 * Checks out a license from the license pool. It must be manually released
-	 * back to the license pool after calling {@link #release()}.
-	 *
-	 * @return a license for this product, assigned to the given user and current hardware.
-	 *
-	 * @throws LicenseRegistrationException if any error occurs checking out the license
-	 */
-	License checkout() throws LicenseRegistrationException;
-
-	/**
-	 * Checks out a license from the license pool, with a given time to live. If this license
-	 * is not manually released back to the license pool with {@link #release()}, it will
-	 * be released automatically after the given expiration time.
-	 *
-	 * @param time the amount of time to elapse until the license is released back to the pool.
-	 * @param timeUnit the unit of time (hours, days) that the given time parameter represents.
-	 *
-	 * @return a license for this product, assigned to the given user and current hardware,
-	 * and valid for the given amount of time.
-	 *
-	 * @throws LicenseRegistrationException if any error occurs checking out the license
-	 */
-	License checkout(long time, TimeUnit timeUnit) throws LicenseRegistrationException;
-
-	/**
-	 * Manually releases the current license, checked out via {@link #checkout()} back to the license pool,
-	 * allowing this license to be used by another user/hardware.
-	 *
-	 * @throws LicenseRegistrationException if any error occurs releasing the license
-	 */
-	void release() throws LicenseRegistrationException;
 }

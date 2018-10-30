@@ -136,4 +136,11 @@ public interface License {
 	 * @return the formatted license support end date.
 	 */
 	String getSupportEndDate(String datePattern);
+
+	/**
+	 * Returns the name of the license pool of which the current license makes part of, otherwise returns {@code null}
+	 *
+	 * @return the license pool name, if any.
+	 */
+	String getLicensePoolName();
 }

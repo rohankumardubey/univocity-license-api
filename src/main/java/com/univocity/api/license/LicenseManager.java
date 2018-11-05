@@ -87,6 +87,31 @@ public interface LicenseManager {
 	License assignLicense(String email, String serialKey) throws LicenseRegistrationException;
 
 	/**
+	 * Assigns a license for this product to a user. The information provided in the parameters and the hardware
+	 * identity will be sent to the license server to generate a {@link License} object. If the information provided
+	 * matches with a license purchase order and its user assignment details, the server will return the signed license
+	 * details and this information will be stored locally.
+	 *
+	 * If the e-mail and serial key provided match with the credentials of a license pool,
+	 * a license from that pool will be returned if available, with a different serial key.
+	 * If all licenses in that pool are taken, a {@link LicenseRegistrationException} will
+	 * be thrown with a {@link LicenseValidationResult#NO_MORE_LICENSES} result.
+	 *
+	 * <strong>NOTE:</strong> this method call may take some time to complete. Running it in a separate thread is
+	 * recommended to prevent locking up your user interface (if applicable).
+	 *
+	 * @param email     e-mail address of the user to whom a license was assigned.
+	 * @param serialKey the license key associated with the given user or with a license pool.
+	 * @param firstName first name the user to whom a license will be assigned.
+	 * @param lastName  last name of the user to whom a license will be assigned.
+	 *
+	 * @return a license for this product, assigned to the given user and current hardware.
+	 *
+	 * @throws LicenseRegistrationException if any error occurs assigning the license
+	 */
+	License assignLicense(String email, String serialKey, String firstName, String lastName) throws LicenseRegistrationException;
+
+	/**
 	 * Assigns a trial license for this product to a user. The information provided in the parameters and the hardware
 	 * identity will be sent to the license server to generate a {@link License} object. If the information provided
 	 * is accepted, the server will return the signed license details and this information will be stored locally.

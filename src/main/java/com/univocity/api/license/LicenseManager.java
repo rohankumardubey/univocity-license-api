@@ -90,7 +90,8 @@ public interface LicenseManager {
 	 * Assigns a license for this product to a user. The information provided in the parameters and the hardware
 	 * identity will be sent to the license server to generate a {@link License} object. If the information provided
 	 * matches with a license purchase order and its user assignment details, the server will return the signed license
-	 * details and this information will be stored locally.
+	 * details and this information will be stored locally. First and last name will be overridden if
+	 * the e-mail and serial key combination is already associated with a name in the license server.
 	 *
 	 * If the e-mail and serial key provided match with the credentials of a license pool,
 	 * a license from that pool will be returned if available, with a different serial key.
